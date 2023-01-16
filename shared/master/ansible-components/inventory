@@ -1,5 +1,6 @@
 web ansible_host=192.168.99.100
 db ansible_host=192.168.99.101
+docker ansible_host=192.168.99.102
 
 
 [webservers]
@@ -7,6 +8,9 @@ web
 
 [dbservers]
 db
+
+[devops]
+docker
 
 [servers:children]
 webservers

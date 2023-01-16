@@ -15,6 +15,13 @@ apt-get install -y docker-ce docker-ce-cli containerd.io
 echo "* Add vagrant user to docker group ..."
 usermod -aG docker vagrant
 
+echo "* Make the docker engine to listen on all interfaces ..."
+sed -i 's@-H fd://@-H fd:// -H tcp://0.0.0.0@g' /lib/systemd/system/docker.service
+
+echo "* Restart Docker ..."
+systemctl daemon-reload
+systemctl restart docker
+
 echo "* Install docker-compose App..."
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
